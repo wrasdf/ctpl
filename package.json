@@ -1,6 +1,6 @@
 {
   "name": "ctpl",
-  "version": "0.0.1",
+  "version": "0.1.2",
   "description": "nodejs AWS cloudformation template runner",
   "main": "ctpl",
   "scripts": {

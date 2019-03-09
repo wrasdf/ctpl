@@ -5,7 +5,7 @@ Ctpl is the AWS CloudFormation‎ Template Runner.
 ## What's inside the Docker image
 
 - node:11.9.0-alpine
-- ctpl:v0.1.0
+- ctpl:v0.1.2
 - awscli
 
 ## Synopsis
