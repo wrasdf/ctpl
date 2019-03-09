@@ -1,0 +1,42 @@
+#!/usr/bin/env node
+
+const ctpl = require('commander'),
+    parser = require('./utils/parser'),
+    core = require('./utils/core')
+
+ctpl
+  .version('0.0.1', '-v, --version')
+  .option('-c, --components [value]', 'AWS CloundFormation components', parser.componentReader, [])
+  .option('-p, --parameters [value]', 'parameters file (yaml|yml)', parser.parameterReader, [])
+  .option('-k, --keyPairs [value]', 'Key=Value Parameter', parser.keyReader, [])
+
+ctpl
+  .command('compile')
+  .description('Compile Kubernetes component templates.')
+  .action(() => {
+    core.cfnCompile(ctpl)
+  })
+
+ctpl
+  .command('validate')
+  .description('Validate Kubernetes component templates.')
+  .action(() => {
+    core.cfnValidate(ctpl)
+  })
+
+ctpl
+  .command('apply')
+  .description('Apply Kubernetes component templates into kubernetes.')
+  .action(() => {
+    core.cfnApply(ctpl)
+  })
+
+ctpl
+  .command('delete')
+  .description('Delete Kubernetes component resources from kubernetes')
+  .action(() => {
+    core.cfnDelete(ctpl)
+  })
+
+ctpl
+  .parse(process.argv)

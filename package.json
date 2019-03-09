@@ -1,0 +1,38 @@
+{
+  "name": "ctpl",
+  "version": "0.0.1",
+  "description": "nodejs AWS cloudformation template runner",
+  "main": "ctpl",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha ./tests/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wrasdf/ctpl.git"
+  },
+  "keywords": [
+    "ctpl",
+    "aws",
+    "cloudformation"
+  ],
+  "author": "wrasdf@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wrasdf/ctpl/issues"
+  },
+  "homepage": "https://github.com/wrasdf/ctpl#readme",
+  "dependencies": {
+    "aws-sdk": "^2.4.8",
+    "commander": "^2.19.0",
+    "deepmerge": "^3.2.0",
+    "lodash": "^4.17.11",
+    "mustache": "^3.0.1",
+    "shelljs": "^0.8.3"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.0.2",
+    "rewire": "^4.0.1",
+    "sinon": "^7.2.7"
+  }
+}

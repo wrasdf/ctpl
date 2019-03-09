@@ -2,6 +2,16 @@ FROM node:11.9.0-alpine
 
 RUN apk --update add bash curl jq python3 \
   && rm -rf /var/cache/apk/*
-RUN pip3 install awscli==1.15.53 cfn-flip==1.0.3
+RUN pip3 install --upgrade pip && pip3 install awscli==1.16.116 cfn-flip==1.1.0
 
 WORKDIR /app
+
+COPY package*.json /app/
+RUN npm install
+COPY . /app/
+RUN chmod +x ctpl && \
+    cp ctpl /usr/local/bin/ && \
+    cp -r utils /usr/local/bin/ && \
+    cp -r node_modules /usr/local/bin/
+
+ENTRYPOINT ["ctpl"]

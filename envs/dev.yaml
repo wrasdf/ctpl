@@ -1,0 +1,15 @@
+VPC:
+  CidrBlock: 10.30.0.0/16
+  AvailabilityZone:
+    - Name: ap-southeast-2a
+      publicSubnet: 10.30.10.0/20
+      privateSubnet: 10.30.11.0/20
+      DBSubnet: 10.30.12.0/20
+    - Name: ap-southeast-2b
+      publicSubnet: 10.30.20.0/20
+      privateSubnet: 10.30.21.0/20
+      DBSubnet: 10.30.22.0/20
+    - Name: ap-southeast-2c
+      publicSubnet: 10.30.30.0/20
+      privateSubnet: 10.30.31.0/20
+      DBSubnet: 10.30.32.0/20

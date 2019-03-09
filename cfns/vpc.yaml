@@ -1,0 +1,60 @@
+---
+AWSTemplateFormatVersion: 2010-09-09
+Resources:
+
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: {{ vpc.CidrBlock }}
+      EnableDnsSupport: false
+      EnableDnsHostnames: false
+      InstanceTenancy: default
+      Tags:
+      - Key: Name
+        Value:
+          Ref: AWS::StackName
+
+  DHCPOptions:
+    Type: AWS::EC2::DHCPOptions
+    Properties:
+      DomainName: my.domain
+      DomainNameServers: [ 8.8.8.8 ]
+      Tags:
+      - Key: Name
+        Value: !Sub ${AWS::StackName}-DHCP
+
+  VPCDHCPOptionsAssociation:
+    Type: AWS::EC2::VPCDHCPOptionsAssociation
+    Properties:
+      VpcId: !Ref VPC
+      DhcpOptionsId: !Ref DHCPOptions
+
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+      - Key: Name
+        Value:
+          Ref: AWS::StackName
+
+  InternetGatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      InternetGatewayId: !Ref InternetGateway
+
+
+  NATEIP1:
+    Type: AWS::EC2::EIP
+    DependsOn: InternetGatewayAttachment
+    Properties:
+      Domain: vpc
+
+  NAT1:
+    DependsOn: InternetGatewayAttachment
+    Type: AWS::EC2::NatGateway
+    Properties:
+      AllocationId: !GetAtt NATEIP1.AllocationId
+      SubnetId: !Ref PublicSubnet1
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-${AvailabilityZone1}-NAT1

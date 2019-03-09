@@ -1,6 +1,6 @@
 # Ctpl
 
-Ctpl is a tool for processing AWS CloudFormation‎ Template.
+Ctpl is the AWS CloudFormation‎ Template Runner.
 
 ## What's inside the Docker image
 
@@ -17,8 +17,6 @@ Options:
   -c, --components [value]  CloudFormation‎ components (default: [])
   -p, --parameters [value]  parameters file (yaml|yml) (default: [])
   -k, --keyPairs [value]    Key=Value Parameter (default: [])
-  -t, --template <file>     template file
-  -o, --output <file>       output file
   -h, --help                output usage information
 
 Commands:
@@ -26,5 +24,4 @@ Commands:
   validate                  Validate AWS CloudFormation‎ Component templates.
   apply                     Run AWS CloudFormation‎ Component templates into AWS.
   delete                    Delete AWS CloudFormation‎ Component templates from AWS.
-  render                    Generate template
 ```
