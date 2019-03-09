@@ -116,6 +116,11 @@ describe('parser functions', () => {
       })
     })
 
+    it(`should return empty object`, async () => {
+      const results = parser._parameterBuilder([])
+      expect(results).to.eql({})
+    })
+
     it(`should ignore not support params file`, async () => {
       let list = [`${__dirname}/files/params1.yaml`, `${__dirname}/files/params2.yaml`, `${__dirname}/files/text.json`]
       const results = parser._parameterBuilder(list)
@@ -132,6 +137,11 @@ describe('parser functions', () => {
         "version": "v0.1.2",
         "cluster": "kubernetes"
       })
+    })
+
+    it(`should return empty object`, async () => {
+      const results = parser._keyBuilder([])
+      expect(results).to.eql({})
     })
 
     it(`should return correct parameters objects with hierarchy`, async () => {

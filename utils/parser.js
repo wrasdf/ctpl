@@ -37,12 +37,18 @@ function _isInSupportList(filePath, list) {
 }
 
 function _parameterBuilder(files) {
+  if (!files) {
+    return {}
+  }
   return files.filter(file => _isInSupportList(file, ["yaml", "yml"]))
     .map(file => utils.yamlParser(file))
     .reduce((accumulator, currentValue) => merge(accumulator, currentValue), {})
 }
 
 function _keyBuilder(keypairs) {
+  if (!keypairs) {
+    return {}
+  }
   return keypairs.map(keypair => utils.keyParser(keypair))
     .reduce((accumulator, currentValue) => merge(accumulator, currentValue), {})
 }

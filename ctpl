@@ -6,8 +6,9 @@ const ctpl = require('commander'),
 
 ctpl
   .version('0.0.1', '-v, --version')
-  .option('-c, --components [value]', 'AWS CloundFormation components', parser.componentReader, [])
-  .option('-p, --parameters [value]', 'parameters file (yaml|yml)', parser.parameterReader, [])
+  .option('-n, --name [value]', 'AWS CloundFormation Stack Name')
+  .option('-c, --components [value]', 'AWS CloundFormation Components', parser.componentReader, [])
+  .option('-p, --parameters [value]', 'Parameters File (yaml|yml)', parser.parameterReader, [])
   .option('-k, --keyPairs [value]', 'Key=Value Parameter', parser.keyReader, [])
 
 ctpl

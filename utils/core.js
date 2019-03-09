@@ -25,27 +25,27 @@ function cfnValidate(cliObj) {
   cfnCompile(cliObj)
   cliObj.components.map(component => {
     const file = `${process.cwd()}/${buildPath}/${component}.yaml`
-    utils.exec(`echo cfn validate ${file}`)
+    utils.exec(`aws cloudformation validate-template --template-body file://${file}`)
   })
+
 }
 
 function cfnApply(cliObj) {
   cfnCompile(cliObj)
   cliObj.components.map(component => {
     const file = `${process.cwd()}/${buildPath}/${component}.yaml`
-    utils.exec(`echo cfn apply ${file}`)
+    const name = (typeof cliObj.name === "function") ? `${component}-stack` : `${cliObj.name}-${component}-stack`
+    utils.exec(`aws cloudformation create-stack --stack-name ${name} --template-body file://${file}`)
   })
 }
 
 function cfnDelete(cliObj) {
   cfnCompile(cliObj)
   cliObj.components.map(component => {
-    const file = `${process.cwd()}/${buildPath}/${component}.yaml`
-    utils.exec(`echo cfn delete ${file}`)
+    const name = (typeof cliObj.name === "function") ? `${component}-stack` : `${cliObj.name}-${component}-stack`
+    utils.exec(`aws cloudformation delete-stack --stack-name ${name}`)
   })
 }
-
-
 
 module.exports = {
   cfnCompile,
