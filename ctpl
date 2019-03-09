@@ -5,7 +5,7 @@ const ctpl = require('commander'),
     core = require('./utils/core')
 
 ctpl
-  .version('0.0.1', '-v, --version')
+  .version('v0.1.0', '-v, --version')
   .option('-n, --name [value]', 'AWS CloundFormation Stack Name')
   .option('-c, --components [value]', 'AWS CloundFormation Components', parser.componentReader, [])
   .option('-p, --parameters [value]', 'Parameters File (yaml|yml)', parser.parameterReader, [])
@@ -13,28 +13,28 @@ ctpl
 
 ctpl
   .command('compile')
-  .description('Compile Kubernetes component templates.')
+  .description('Compile AWS CloudFormation Component template.')
   .action(() => {
     core.cfnCompile(ctpl)
   })
 
 ctpl
   .command('validate')
-  .description('Validate Kubernetes component templates.')
+  .description('Validate AWS CloudFormation Component template.')
   .action(() => {
     core.cfnValidate(ctpl)
   })
 
 ctpl
   .command('apply')
-  .description('Apply Kubernetes component templates into kubernetes.')
+  .description('Apply AWS CloudFormation Component template.')
   .action(() => {
     core.cfnApply(ctpl)
   })
 
 ctpl
   .command('delete')
-  .description('Delete Kubernetes component resources from kubernetes')
+  .description('Delete AWS CloudFormation Component stack.')
   .action(() => {
     core.cfnDelete(ctpl)
   })
