@@ -2,9 +2,9 @@ build:
 	docker build -t ctpl:latest .
 
 push-%: build
-	docker tag ntpl:latest ikerry/ctpl:v$(*)
+	docker tag ntpl:latest ikerry/ctpl:$(*)
 	docker tag ntpl:latest ikerry/ctpl:latest
-	docker push ikerry/ctpl:v$(*)
+	docker push ikerry/ctpl:$(*)
 	docker push ikerry/ctpl:latest
 
 sh: build
