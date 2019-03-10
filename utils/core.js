@@ -31,7 +31,7 @@ function cfnValidate(cliObj) {
 }
 
 function stackName(cliObj, component) {
-  return (typeof cliObj.name === "function") ? `${component}-stack` : `${cliObj.name}-${component}-stack`
+  return (typeof cliObj.name === "function") ? `${component}` : `${cliObj.name}-${component}`
 }
 
 function cfnApply(cliObj) {
