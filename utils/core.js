@@ -53,7 +53,7 @@ function cfnApply(cliObj) {
 // An error occurred (ValidationError) when calling the DescribeStacks operation: Stack with id kube-vpc-stack does not exist
     // TODO wait for
 
-    utils.exec(`aws cloudformation deploy --stack-name ${name} --template-file ${file}`)
+    utils.exec(`aws cloudformation deploy --stack-name ${name} --template-file ${file} --capabilities CAPABILITY_IAM`)
   })
 }
 
