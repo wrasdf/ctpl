@@ -8,7 +8,7 @@ const AWS = require('aws-sdk'),
       })
 
 function createCFNStack(name, cfnFile, callback) {
-  console.log(`Craete CFN $(name)`)
+  console.log(`Craete CFN ${name}`)
   return cfn.createStack({
     'StackName': name,
     'TemplateBody': utils.readfile(cfnFile),
@@ -26,7 +26,7 @@ function createCFNStack(name, cfnFile, callback) {
 }
 
 function deleteCFNStack(name, callback) {
-  console.log(`Delete CFN $(name)`)
+  console.log(`Delete CFN ${name}`)
   cfn.deleteStack({
     'StackName': name
   }, (err, data) => {
@@ -42,7 +42,7 @@ function deleteCFNStack(name, callback) {
 }
 
 function updateCFNStack(name, cfnFile, callback) {
-  console.log(`Update CFN $(name)`)
+  console.log(`Update CFN ${name}`)
   cfn.updateStack({
     'StackName': name,
     'TemplateBody': utils.readfile(cfnFile),
