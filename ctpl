@@ -5,11 +5,13 @@ const ctpl = require('commander'),
     core = require('./utils/core')
 
 ctpl
-  .version('v0.1.2', '-v, --version')
-  .option('-n, --name [value]', 'AWS CloundFormation Stack Name')
-  .option('-c, --components [value]', 'AWS CloundFormation Components', parser.componentReader, [])
+  .version('v0.1.3', '-v, --version')
+  .option('-n, --name [value]', 'AWS CloudFormation Stack Name')
+  .option('-c, --components [value]', 'AWS CloudFormation Components', parser.componentReader, [])
   .option('-p, --parameters [value]', 'Parameters File (yaml|yml)', parser.parameterReader, [])
   .option('-k, --keyPairs [value]', 'Key=Value Parameter', parser.keyReader, [])
+  .option('-t, --template <file>', 'template file')
+  .option('-o, --output <file>', 'output file')
 
 ctpl
   .command('compile')
@@ -38,6 +40,14 @@ ctpl
   .action(() => {
     core.cfnDelete(ctpl)
   })
+
+ctpl
+  .command('render')
+  .description('Render Template.')
+  .action(() => {
+    core.tplRender(ctpl)
+  })
+
 
 ctpl
   .parse(process.argv)

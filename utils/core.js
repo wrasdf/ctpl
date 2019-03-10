@@ -36,6 +36,9 @@ function cfnApply(cliObj) {
     const file = `${process.cwd()}/${buildPath}/${component}.yaml`
     const name = (typeof cliObj.name === "function") ? `${component}-stack` : `${cliObj.name}-${component}-stack`
     const deadStatus = ['CREATE_FAILED', 'ROLLBACK_COMPLETE']
+
+    // TODO Need to be refactored
+
     const status = utils.exec(`aws cloudformation describe-stacks --stack-name ${name}`, {silent: true})
     if (status != "") {
       JSON.parse(status.stdout).Stacks
@@ -62,9 +65,16 @@ function cfnDelete(cliObj) {
   })
 }
 
+function tplRender(cliObj) {
+  const fileContent = utils.readfile(cliObj.template),
+        params = parser.getParameters(cliObj)
+  utils.appendFile(cliObj.output, Mustache.render(fileContent, params))
+}
+
 module.exports = {
   cfnCompile,
   cfnValidate,
   cfnApply,
-  cfnDelete
+  cfnDelete,
+  tplRender
 }
