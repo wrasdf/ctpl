@@ -35,7 +35,22 @@ function cfnApply(cliObj) {
   cliObj.components.map(component => {
     const file = `${process.cwd()}/${buildPath}/${component}.yaml`
     const name = (typeof cliObj.name === "function") ? `${component}-stack` : `${cliObj.name}-${component}-stack`
-    utils.exec(`aws cloudformation create-stack --stack-name ${name} --template-body file://${file}`)
+    const deadStatus = ['CREATE_FAILED', 'ROLLBACK_COMPLETE']
+    const status = utils.exec(`aws cloudformation describe-stacks --stack-name ${name}`, {silent: true})
+    if (status != "") {
+      JSON.parse(status.stdout).Stacks
+      .filter(stack => stack.StackName === name )
+      .map(stack => {
+        if (deadStatus.indexOf(stack.StackStatus) !== -1){
+          utils.exec(`aws cloudformation delete-stack --stack-name ${name}`)
+        }
+      })
+    }
+// kube-vpc-stack/933f98a0-427b-11e9-9a23-0af0093ead5a is in DELETE_IN_PROGRESS state and can not be updated.
+// An error occurred (ValidationError) when calling the DescribeStacks operation: Stack with id kube-vpc-stack does not exist
+    // TODO wait for
+
+    utils.exec(`aws cloudformation deploy --stack-name ${name} --template-file ${file}`)
   })
 }
 
