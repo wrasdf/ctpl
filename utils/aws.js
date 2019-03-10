@@ -107,7 +107,6 @@ function deployCFNStack(name, cfnFile) {
 
     const currentStack = stacks[0]
     if (deadStatus.indexOf(currentStack.StackStatus) !== -1) {
-      console.log(`Delete CFN ${name}`)
       return deleteCFNStack(name, () => {
         waitCFNStack(name, () => createCFNStack(name, cfnFile))
       })
