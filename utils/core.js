@@ -30,7 +30,7 @@ function cfnValidate(cliObj) {
   })
 }
 
-function stackName(cliObj) {
+function stackName(cliObj, component) {
   return (typeof cliObj.name === "function") ? `${component}-stack` : `${cliObj.name}-${component}-stack`
 }
 
@@ -38,7 +38,7 @@ function cfnApply(cliObj) {
   cfnCompile(cliObj)
   cliObj.components.map(component => {
     const file = `${process.cwd()}/${buildPath}/${component}.yaml`
-    const name = stackName(cliObj)
+    const name = stackName(cliObj, component)
     aws.deployCFNStack(name, file)
   })
 }
@@ -46,7 +46,7 @@ function cfnApply(cliObj) {
 function cfnDelete(cliObj) {
   cfnCompile(cliObj)
   cliObj.components.map(component => {
-    const name = stackName(cliObj)
+    const name = stackName(cliObj, component)
     utils.exec(`aws cloudformation delete-stack --stack-name ${name}`)
   })
 }
