@@ -10,6 +10,12 @@ describe('utils functions', () => {
       expect(objects.app).to.have.property("name");
       expect(objects.app).to.have.property("namespace");
     });
+
+    it(`should parse empty yaml correctly`, () => {
+      objects = utils.yamlParser(`${__dirname}/files/empty.yaml`)
+      expect(objects).to.eqls({});
+    });
+
   })
 
 
