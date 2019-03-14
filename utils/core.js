@@ -6,10 +6,10 @@ const parser = require('./parser'),
       aws = require('./aws'),
       buildPath = '_cfns_build'
 
-function cfnCompile(cliObj) {
+function cfnCompile(ctpl) {
 
-  const params = parser.getParameters(cliObj),
-        components = cliObj.components
+  const params = parser.getParameters(ctpl),
+        components = ctpl.components
   // Clean build folder
   utils.rmdir(buildPath)
   components.map(component => utils.mkdir(`${process.cwd()}/${buildPath}/`))
@@ -22,39 +22,39 @@ function cfnCompile(cliObj) {
 
 }
 
-function cfnValidate(cliObj) {
-  cfnCompile(cliObj)
-  cliObj.components.map(component => {
+function cfnValidate(ctpl) {
+  cfnCompile(ctpl)
+  ctpl.components.map(component => {
     const file = `${process.cwd()}/${buildPath}/${component}.yaml`
     utils.exec(`aws cloudformation validate-template --template-body file://${file}`)
   })
 }
 
-function stackName(cliObj, component) {
-  return (typeof cliObj.name === "function") ? `${component}` : `${cliObj.name}-${component}`
+function stackName(ctpl, component) {
+  return (typeof ctpl.name === "function") ? `${component}` : `${ctpl.name}-${component}`
 }
 
-function cfnApply(cliObj) {
-  cfnCompile(cliObj)
-  cliObj.components.map(component => {
+function cfnApply(ctpl) {
+  cfnCompile(ctpl)
+  ctpl.components.map(component => {
     const file = `${process.cwd()}/${buildPath}/${component}.yaml`
-    const name = stackName(cliObj, component)
+    const name = stackName(ctpl, component)
     aws.deployCFNStack(name, file)
   })
 }
 
-function cfnDelete(cliObj) {
-  cfnCompile(cliObj)
-  cliObj.components.map(component => {
-    const name = stackName(cliObj, component)
+function cfnDelete(ctpl) {
+  cfnCompile(ctpl)
+  ctpl.components.map(component => {
+    const name = stackName(ctpl, component)
     utils.exec(`aws cloudformation delete-stack --stack-name ${name}`)
   })
 }
 
-function tplRender(cliObj) {
-  const fileContent = utils.readfile(cliObj.template),
-        params = parser.getParameters(cliObj)
-  utils.appendFile(cliObj.output, Mustache.render(fileContent, params))
+function tplRender(ctpl) {
+  const fileContent = utils.readfile(ctpl.template),
+        params = parser.getParameters(ctpl)
+  utils.appendFile(ctpl.output, Mustache.render(fileContent, params))
 }
 
 module.exports = {
