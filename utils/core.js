@@ -31,7 +31,7 @@ function cfnValidate(ctpl) {
 }
 
 function stackName(ctpl, component) {
-  return (typeof ctpl.name === "function") ? `${component}` : `${ctpl.name}-${component}`
+  return ((typeof ctpl.name === "function") || !ctpl.name) ? `${component}` : `${ctpl.name}-${component}`
 }
 
 function cfnApply(ctpl) {
@@ -62,5 +62,6 @@ module.exports = {
   cfnValidate,
   cfnApply,
   cfnDelete,
-  tplRender
+  tplRender,
+  stackName
 }

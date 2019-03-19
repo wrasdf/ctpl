@@ -46,4 +46,28 @@ describe('core functions', () => {
     });
   })
 
+  describe(`stackName`, () => {
+    it(`should return correct stack name`, () => {
+      const ctpl = {
+        "name": "kube"
+      }
+      expect(core.stackName(ctpl, "vpc")).to.eqls('kube-vpc');
+    });
+
+    it(`should return correct stack name`, () => {
+      const ctpl = {
+        "name": function() {}
+      }
+      expect(core.stackName(ctpl, "vpc")).to.eqls('vpc');
+    });
+
+    it(`should return correct stack name`, () => {
+      const ctpl = {
+        "name": ""
+      }
+      expect(core.stackName(ctpl, "vpc")).to.eqls('vpc');
+    });
+
+  })
+
 });
