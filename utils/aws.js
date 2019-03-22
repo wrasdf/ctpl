@@ -17,10 +17,10 @@ function createCFNStack(name, cfnFile, callback) {
     if (err) {
       console.log(err, err.stack);
     }else {
+      console.log(data)
       if (callback) {
         return callback(data)
       }
-      console.log(data)
     }
   })
 }
@@ -33,10 +33,10 @@ function deleteCFNStack(name, callback) {
     if (err) {
       console.log(err, err.stack);
     }else {
+      console.log(data)
       if (callback) {
         return callback(data)
       }
-      console.log(data)
     }
   })
 }
@@ -51,10 +51,10 @@ function updateCFNStack(name, cfnFile, callback) {
     if (err) {
       console.log(err, err.stack);
     }else {
+      console.log(data)
       if (callback) {
         return callback(data)
       }
-      console.log(data)
     }
   })
 }
