@@ -124,5 +124,6 @@ function deployCFNStack(name, cfnFile) {
 }
 
 module.exports = {
-  deployCFNStack
+  deployCFNStack,
+  deleteCFNStack
 }

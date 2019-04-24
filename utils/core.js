@@ -47,7 +47,7 @@ function cfnDelete(ctpl) {
   cfnCompile(ctpl)
   ctpl.components.map(component => {
     const name = stackName(ctpl, component)
-    utils.exec(`aws cloudformation delete-stack --stack-name ${name}`)
+    aws.deleteCFNStack(name)
   })
 }
 
