@@ -15,7 +15,7 @@ function createCFNStack(name, cfnFile, callback) {
     'Capabilities': [ 'CAPABILITY_IAM', 'CAPABILITY_NAMED_IAM' ]
   }, (err, data) => {
     if (err) {
-      console.log(err, err.stack);
+      console.log(err.message);
     }else {
       console.log(data)
       if (callback) {
@@ -31,7 +31,7 @@ function deleteCFNStack(name, callback) {
     'StackName': name
   }, (err, data) => {
     if (err) {
-      console.log(err, err.stack);
+      console.log(err.message);
     }else {
       console.log(data)
       if (callback) {
@@ -49,7 +49,7 @@ function updateCFNStack(name, cfnFile, callback) {
     'Capabilities': [ 'CAPABILITY_IAM', 'CAPABILITY_NAMED_IAM' ]
   }, (err, data) => {
     if (err) {
-      console.log(err, err.stack);
+      console.log(err.message);
     }else {
       console.log(data)
       if (callback) {
@@ -62,7 +62,7 @@ function updateCFNStack(name, cfnFile, callback) {
 function getCFNStack(name, callback) {
   cfn.listStacks({}, (err, data) => {
     if (err) {
-      console.log(err, err.stack);
+      console.log(err.message);
     }else {
       callback(data.StackSummaries.filter(stack => {
         return stack.StackName === name && stack.StackStatus !== 'DELETE_COMPLETE'
