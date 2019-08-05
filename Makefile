@@ -8,4 +8,4 @@ push-%: build
 	docker push ikerry/ctpl:latest
 
 sh: build
-	docker run -it -w /app -v $(shell pwd):/app -v $(HOME)/.aws:/root/.aws --entrypoint "/bin/bash" ctpl:latest
+	docker run -it -w /app -v $(shell pwd):/app -v $(HOME)/.aws:/root/.aws -v /app/node_modules --entrypoint "/bin/bash" ctpl:latest
