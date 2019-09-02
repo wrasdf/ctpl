@@ -1,4 +1,4 @@
-# Ctpl
+# Ctpl [![CircleCI](https://circleci.com/gh/wrasdf/ctpl/tree/master.svg?style=svg)](https://circleci.com/gh/wrasdf/ctpl/tree/master)
 
 Ctpl is the AWS CloudFormation‎ Template Runner.
 
