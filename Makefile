@@ -7,5 +7,10 @@ push-%: build
 	docker push ikerry/ctpl:$(*)
 	docker push ikerry/ctpl:latest
 
-sh: build
-	docker run -it -w /app -v $(shell pwd):/app -v $(HOME)/.aws:/root/.aws -v /app/node_modules --entrypoint "/bin/bash" ctpl:latest
+sh:
+	@docker-compose build sh
+	@docker-compose run --rm sh
+
+test:
+	@docker-compose build test
+	@docker-compose run --rm test

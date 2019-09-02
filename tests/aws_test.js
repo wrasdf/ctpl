@@ -1,8 +1,7 @@
 const mocha = require('mocha'),
       expect = require("chai").expect,
       rewire = require("rewire"),
-      aws = rewire('../utils/aws'),
-      sinon = require('sinon')
+      aws = rewire('../utils/aws')
 
 describe('aws functions', () => {
 
