@@ -5,7 +5,6 @@ const ctpl = require('commander'),
     core = require('./utils/core')
 
 ctpl
-  .version('v0.1.4', '-v, --version')
   .option('-n, --name [value]', 'AWS CloudFormation Stack Name')
   .option('-c, --components [value]', 'AWS CloudFormation Components', parser.componentReader, [])
   .option('-p, --parameters [value]', 'Parameters File (yaml|yml)', parser.parameterReader, [])

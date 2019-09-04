@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  build:
+  ut:
     machine: true
     steps:
       - checkout
@@ -8,3 +8,28 @@ jobs:
           name: Unit Test
           command: |
             make test
+
+  deploy:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Deploy to Docker Hub
+          command: |
+            echo ${DOCKER_PASSWORD} | base64 --decode | docker login -u $DOCKER_USER --password-stdin
+            make push-${CIRCLE_TAG}
+
+workflows:
+  version: 2
+  untagged-build:
+    jobs:
+      - ut
+  tagged-build:
+    jobs:
+      - deploy:
+          context: Docker
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v.*/
