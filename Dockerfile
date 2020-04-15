@@ -2,7 +2,7 @@ FROM node:12-alpine
 
 RUN apk --update add bash curl jq python3 \
   && rm -rf /var/cache/apk/*
-RUN pip3 install --upgrade pip && pip3 install awscli==1.16.116 cfn-flip==1.1.0
+RUN pip3 install --upgrade pip && pip3 install awscli==1.18.39 cfn-flip==1.1.0
 
 WORKDIR /app
 
