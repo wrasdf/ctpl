@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/wrasdf/ctpl#readme",
   "dependencies": {
-    "aws-sdk": "^2.727.1",
+    "aws-sdk": "^2.728.0",
     "commander": "^6.0.0",
     "deepmerge": "^4.2.2",
     "mustache": "^4.0.1",
