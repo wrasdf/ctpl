@@ -40,12 +40,4 @@ ctpl
   })
 
 ctpl
-  .command('render')
-  .description('Render Template.')
-  .action(() => {
-    core.tplRender(ctpl)
-  })
-
-
-ctpl
   .parse(process.argv)
