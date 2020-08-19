@@ -56,5 +56,5 @@ docker run --rm -v $(pwd):/app -v ~/.aws:/root/.aws -w /app ikerry/ctpl:latest a
   -p "envs/default.yaml" \
   -p "envs/dev.yaml" \
   -k "VPC.Name=cluster" \
-  -c "vpc"
+  -c "infra/vpc"
 ```
