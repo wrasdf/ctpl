@@ -19,7 +19,6 @@ Options:
   -p, --parameters [value]  Parameters File (yaml|yml) (default: [])
   -k, --keyPairs [value]    Key=Value Parameter (default: [])
   -t, --template <file>     template file
-  -o, --output <file>       output file
   -h, --help                output usage information
 
 Commands:
@@ -31,14 +30,13 @@ Commands:
 
 ## Quick start
 
-- Render templates with params
+- Conpile templates with params
 
 ```
-docker run --rm -v $(pwd):/app -v ~/.aws:/root/.aws -w /app ikerry/ctpl:latest render \
+docker run --rm -v $(pwd):/app -v ~/.aws:/root/.aws -w /app ikerry/ctpl:latest compile \
   -p "envs/dev.yaml" \
   -k "VPC.Name=cluster" \
   -t "cfns/vpc.yaml" \
-  -o "test.yaml"
 ```
 
 - Validate AWS CloudFormation component templates
@@ -55,7 +53,6 @@ docker run --rm -v $(pwd):/app -v ~/.aws:/root/.aws -w /app ikerry/ctpl:latest v
 
 ```
 docker run --rm -v $(pwd):/app -v ~/.aws:/root/.aws -w /app ikerry/ctpl:latest apply \
-  -n "kube" \
   -p "envs/default.yaml" \
   -p "envs/dev.yaml" \
   -k "VPC.Name=cluster" \
