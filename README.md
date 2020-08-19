@@ -14,7 +14,7 @@ Ctpl is the AWS CloudFormation‎ Template Runner.
 Usage: ctpl [options] [command]
 
 Options:
-  -n, --name [value]        AWS CloudFormation Stack Name
+  -s, --prefix [value]      AWS CloudFormation StackName prefix)
   -c, --components [value]  AWS CloudFormation Components (default: [])
   -p, --parameters [value]  Parameters File (yaml|yml) (default: [])
   -k, --keyPairs [value]    Key=Value Parameter (default: [])
@@ -27,7 +27,6 @@ Commands:
   validate                  Validate AWS CloudFormation Component template.
   apply                     Apply AWS CloudFormation Component template.
   delete                    Delete AWS CloudFormation Component stack.
-  render                    Render Template.
 ```
 
 ## Quick start

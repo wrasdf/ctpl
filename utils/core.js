@@ -7,19 +7,22 @@ const parser = require('./parser'),
       buildPath = '_cfns_build'
 
 function cfnCompile(ctpl) {
-
   const params = parser.getParameters(ctpl),
-        components = ctpl.components
+        components = ctpl.components,
+        prefix = ctpl.prefix
+
   // Clean build folder
   utils.rmdir(buildPath)
-  components.map(component => utils.mkdir(`${process.cwd()}/${buildPath}/`))
-
   components.map(component => {
     const file = `${process.cwd()}/cfns/${component}.yaml`
     const fileContent = utils.readfile(file)
-    utils.appendFile(file.replace(/cfns/, buildPath), Mustache.render(fileContent, params))
+    utils.writeFile(file.replace(/cfns/, buildPath), Mustache.render(fileContent, params))
   })
+}
 
+function stackName(ctpl, name) {
+  const newName = `${name.replace(/\//, '-')}`
+  return ((typeof ctpl.prefix === "function") || !ctpl.prefix) ? `${newName}` : `${ctpl.prefix}-${newName}`
 }
 
 function cfnValidate(ctpl) {
@@ -28,10 +31,6 @@ function cfnValidate(ctpl) {
     const file = `${process.cwd()}/${buildPath}/${component}.yaml`
     utils.exec(`aws cloudformation validate-template --template-body file://${file}`)
   })
-}
-
-function stackName(ctpl, component) {
-  return ((typeof ctpl.name === "function") || !ctpl.name) ? `${component}` : `${ctpl.name}-${component}`
 }
 
 function cfnApply(ctpl) {
@@ -51,17 +50,10 @@ function cfnDelete(ctpl) {
   })
 }
 
-function tplRender(ctpl) {
-  const fileContent = utils.readfile(ctpl.template),
-        params = parser.getParameters(ctpl)
-  utils.appendFile(ctpl.output, Mustache.render(fileContent, params))
-}
-
 module.exports = {
   cfnCompile,
   cfnValidate,
   cfnApply,
   cfnDelete,
-  tplRender,
   stackName
 }

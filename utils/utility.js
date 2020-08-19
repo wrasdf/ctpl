@@ -1,16 +1,12 @@
 'use strict';
 
 const join = require('path').join,
-      fs = require('fs'),
+      fs = require('fs-extra'),
       shell = require('shelljs'),
       yaml = require('js-yaml')
 
 function exec(script) {
   return shell.exec(script);
-}
-
-function mkdir(directory) {
-  return shell.mkdir('-p', directory);
 }
 
 function rmdir(directory) {
@@ -48,17 +44,16 @@ function readfile(path) {
   return fs.readFileSync(path, 'utf8');
 }
 
-function appendFile(path, content) {
-  return fs.appendFileSync(path, content, 'utf8');
+function writeFile(path, content) {
+  return fs.outputFileSync(path, content, 'utf8');
 }
 
 module.exports = {
   yamlParser,
   keyParser,
   exec,
-  mkdir,
   rmdir,
   readdir,
   readfile,
-  appendFile
+  writeFile
 }
