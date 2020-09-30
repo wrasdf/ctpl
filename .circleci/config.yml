@@ -1,7 +1,8 @@
 version: 2.1
 jobs:
   ut:
-    machine: true
+    machine:
+      image: ubuntu-1604:201903-01
     steps:
       - checkout
       - run:
@@ -10,18 +11,19 @@ jobs:
             make test
 
   deploy:
-    machine: true
+    machine:
+      image: ubuntu-1604:201903-01
     steps:
       - checkout
       - run:
           name: Deploy to Docker Hub
           command: |
             echo ${DOCKER_PASSWORD} | base64 --decode | docker login -u $DOCKER_USER --password-stdin
-            make push-${CIRCLE_TAG}
+            make build-${CIRCLE_TAG}
 
 workflows:
   version: 2
-  untagged-build:
+  any-commit:
     jobs:
       - ut
   tagged-build:

@@ -1,11 +1,7 @@
-build:
-	docker build -t ctpl:latest .
+.PHONY: sh test
 
-push-%: build
-	docker tag ctpl:latest ikerry/ctpl:$(*)
-	docker tag ctpl:latest ikerry/ctpl:latest
-	docker push ikerry/ctpl:$(*)
-	docker push ikerry/ctpl:latest
+build-%:
+	./bin/build.sh $(*)
 
 sh:
 	@docker-compose build sh

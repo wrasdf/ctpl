@@ -36,7 +36,7 @@ Commands:
 docker run --rm -v $(pwd):/app -v ~/.aws:/root/.aws -w /app ikerry/ctpl:latest compile \
   -p "envs/dev.yaml" \
   -k "VPC.Name=cluster" \
-  -t "cfns/vpc.yaml" \
+  -t "cfns/vpc.yaml"
 ```
 
 - Validate AWS CloudFormation component templates

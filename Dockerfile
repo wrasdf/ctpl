@@ -1,14 +1,31 @@
-FROM node:12-alpine
+FROM node:14.9.0-alpine as base
+RUN apk --upgrade add bash curl jq python3 \
+  && rm -rf /var/cache/apk/*
+RUN pip3 install --upgrade pip && pip3 install awscli==1.18.39 cfn-flip==1.1.0
+WORKDIR /app
+COPY package.json *yarn* /app/
+RUN yarn install
+COPY . /app
 
-RUN apk --update add bash curl jq python3 \
+
+FROM node:14.9.0-alpine as release
+RUN apk --upgrade add bash curl jq python3 \
   && rm -rf /var/cache/apk/*
 RUN pip3 install --upgrade pip && pip3 install awscli==1.18.39 cfn-flip==1.1.0
 
 WORKDIR /app
 
+## add user
+RUN addgroup -S user && adduser -S user -G user
+RUN chown -R user:user /app && chmod -R 777 /app
+
+## switch to non-root user
+USER user
+
 COPY package.json *yarn* /app/
 RUN yarn install
 COPY . /app/
+
 RUN chmod +x ctpl && \
     cp ctpl /usr/local/bin/ && \
     cp -r utils /usr/local/bin/ && \

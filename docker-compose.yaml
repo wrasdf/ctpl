@@ -1,12 +1,12 @@
 ---
-version: '3.2'
+version: '3.7'
 
 services:
 
   test: &base
     build:
       context: .
-      dockerfile: Dockerfile-dev
+      target: base
     working_dir: /app
     entrypoint:
       - yarn
@@ -22,8 +22,16 @@ services:
     entrypoint:
       - "bash"
 
+  trivy:
+    image: aquasec/trivy:0.10.2
+    working_dir: /app
+    volumes:
+      - ".:/app"
+      - "./cache:/root/.cache/"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+
   ctpl:
-    image: ikerry/cptl:v0.1.4
+    image: ikerry/cptl:latest
     working_dir: /app
     volumes:
       - ".:/app"
