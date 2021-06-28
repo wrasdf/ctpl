@@ -160,10 +160,10 @@ astral-regex@^1.0.0:
   resolved "https://registry.yarnpkg.com/astral-regex/-/astral-regex-1.0.0.tgz#6c8c3fb827dd43ee3918f27b82782ab7658a6fd9"
   integrity sha512-+Ryf6g3BKoRc7jfp7ad8tM4TtMiaWvbF/1/sQcZPkkS7ag3D5nMBCe2UfOTONtAkaG0tO0ij3C5Lwmf1EiyjHg==
 
-aws-sdk@^2.935.0:
-  version "2.935.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.935.0.tgz#f122667a4b004d6cf5761e754d42f507b1fc36f7"
-  integrity sha512-OeoqkZ0fXPC1xjumoFQmPccASXmGBBNBsI3l9vs/NCQk3WyBfiYh07H6RO5owtCmp0a8hAjKSZAHjnRe2JlmEA==
+aws-sdk@^2.936.0:
+  version "2.936.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.936.0.tgz#b69f5db7c0c745f260b014415a8fbfb38c5e615d"
+  integrity sha512-X0kuyycck0fEPN5V0Vw1PmPIQ4BO0qupsL1El5jnXzXxNkf1cOmn5PMSxPXPsdcqua4w4h3sf143/yME0V9w8g==
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
