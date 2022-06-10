@@ -15,7 +15,15 @@ services:
       - ".:/app"
 
   test:
-    <<: *base
+    build:
+      context: .
+      target: dev
+    working_dir: /app
+    platform: linux/amd64
+    volumes:
+      - "$HOME/.aws:/root/.aws"
+      - /app/node_modules
+      - ".:/app"
     entrypoint:
       - yarn
       - run
