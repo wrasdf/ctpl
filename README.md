@@ -1,10 +1,10 @@
-# Ctpl [![CircleCI](https://circleci.com/gh/wrasdf/ctpl/tree/master.svg?style=svg)](https://circleci.com/gh/wrasdf/ctpl/tree/master)
+# Ctpl 
 
 Ctpl is the AWS CloudFormation‎ Template Runner.
 
 ## What's inside the Docker image
 
-- node:11.9.0-alpine
+- node:18-alpine
 - ctpl
 - awscli
 
@@ -36,7 +36,7 @@ Commands:
 docker run --rm -v $(pwd):/app -v ~/.aws:/root/.aws -w /app ikerry/ctpl:latest compile \
   -p "envs/dev.yaml" \
   -k "VPC.Name=cluster" \
-  -t "cfns/vpc.yaml" \
+  -t "cfns/infra/vpc.yaml" 
 ```
 
 - Validate AWS CloudFormation component templates
@@ -46,7 +46,7 @@ docker run --rm -v $(pwd):/app -v ~/.aws:/root/.aws -w /app ikerry/ctpl:latest v
   -p "envs/default.yaml" \
   -p "envs/dev.yaml" \
   -k "VPC.Name=cluster" \
-  -c "vpc"
+  -c "infra/vpc"
 ```
 
 - Apply AWS CloudFormation component templates

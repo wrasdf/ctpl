@@ -1,13 +1,21 @@
 ---
-version: '3.2'
+version: '3.7'
 
 services:
 
-  test: &base
+  x-default: &base
     build:
       context: .
-      dockerfile: Dockerfile-dev
+      target: dev
     working_dir: /app
+    platform: linux/amd64
+    volumes:
+      - "$HOME/.aws:/root/.aws"
+      - /app/node_modules
+      - ".:/app"
+
+  test:
+    <<: *base
     entrypoint:
       - yarn
       - run
@@ -15,16 +23,12 @@ services:
 
   sh:
     <<: *base
-    volumes:
-      - ".:/app"
-      - /app/node_modules
-      - "$HOME/.aws:/root/.aws"
     entrypoint:
       - "bash"
 
   ctpl:
-    image: ikerry/cptl:v0.1.4
     working_dir: /app
+    image: ikerry/cptl:v1.0.1
     volumes:
       - ".:/app"
       - "$HOME/.aws:/root/.aws"

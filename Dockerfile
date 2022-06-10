@@ -1,8 +1,23 @@
-FROM node:12-alpine
+FROM node:18-alpine as dev
 
-RUN apk --update add bash curl jq python3 \
+RUN apk --update add --no-cache libstdc++ libgcc python3 py3-pip bash \
+  && pip3 install --upgrade pip \
+  && pip3 install awscli cfn-flip \
   && rm -rf /var/cache/apk/*
-RUN pip3 install --upgrade pip && pip3 install awscli==1.18.39 cfn-flip==1.1.0
+
+WORKDIR /app
+
+COPY package.json *yarn* /app/
+RUN yarn install
+COPY . /app/
+
+
+FROM node:18-alpine as release
+
+RUN apk --update add --no-cache libstdc++ libgcc python3 py3-pip bash \
+  && pip3 install --upgrade pip \
+  && pip3 install awscli cfn-flip \
+  && rm -rf /var/cache/apk/*
 
 WORKDIR /app
 

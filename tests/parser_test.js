@@ -10,7 +10,7 @@ describe('parser functions', () => {
     it(`should return correct order of components`, () => {
       let clist = ["c"]
       parser.componentReader("a", clist)
-      expect(clist).to.eql(["c", "a"])
+      expect(clist).to.eqls(["c", "a"])
     });
   })
 
@@ -18,14 +18,14 @@ describe('parser functions', () => {
     it(`should return correct order of parameter files`, () => {
       let plist = ["files/t1.yaml"]
       parser.parameterReader("files/t2.yaml", plist)
-      expect(plist).to.eql(["files/t1.yaml", "files/t2.yaml"])
+      expect(plist).to.eqls(["files/t1.yaml", "files/t2.yaml"])
     });
 
     it(`should only return support parameter files`, () => {
       let plist = ["files/t1.yaml"]
       parser.parameterReader("files/t2.yaml", plist)
       parser.parameterReader("files/t3.json", plist)
-      expect(plist).to.eql(["files/t1.yaml", "files/t2.yaml"])
+      expect(plist).to.eqls(["files/t1.yaml", "files/t2.yaml"])
     });
 
   })
@@ -34,16 +34,19 @@ describe('parser functions', () => {
     it(`should return correct order of keypair strings`, () => {
       let keyList = ["name.version='v0.0.1'"]
       parser.componentReader("name.repo='ctpl'", keyList)
-      expect(keyList).to.eql(["name.version='v0.0.1'", "name.repo='ctpl'"])
+      expect(keyList).to.eqls(["name.version='v0.0.1'", "name.repo='ctpl'"])
     });
   })
 
   describe(`getParameters`, () => {
 
     it(`should return correct parameters`, () => {
-      const mock_ctpl = {
-        parameters:[],
-        keyPairs: []
+      const mock_ctpl = {}
+      mock_ctpl.opts = () => {
+        return {
+          parameters:[],
+          keyPairs: []
+        }
       }
       parser.__set__({
         _parameterBuilder: () => {
@@ -154,6 +157,19 @@ describe('parser functions', () => {
         "cluster": "kubernetes"
       })
     })
+
+    it(`should return correct parameters objects with hierarchy and orders`, async () => {
+      const results = parser._keyBuilder(["app.name=Cluster", "version=v0.1.2", "cluster=kubernetes", "app.namespace=kube-system", "app.name=newCluster"])
+      expect(results).to.eql({
+        "app": {
+          "name": "newCluster",
+          "namespace": "kube-system"
+        },
+        "version": "v0.1.2",
+        "cluster": "kubernetes"
+      })
+    })
+
   })
 
 });

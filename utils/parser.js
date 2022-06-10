@@ -6,25 +6,27 @@ const utils = require('./utility'),
       merge = require('deepmerge')
 
 function componentReader(component, componentsList){
-  componentsList.push(component)
+  componentsList.push(component);
   return componentsList
 }
 
 function parameterReader(filePath, fileList) {
   if (_isInSupportList(filePath, supportList)) {
-    fileList.push(filePath)
+    fileList.push(filePath);
   }
   return fileList
 }
 
 function keyReader(keypair, keyslist) {
   keyslist.push(keypair)
-  return keyslist
+  return keyslist;
 }
 
 function getParameters(cliObj) {
-  const fileParams = _parameterBuilder(cliObj.parameters)
-  const keyParams = _keyBuilder(cliObj.keyPairs)
+  const opts = cliObj.opts()
+  console.log(opts)
+  const fileParams = _parameterBuilder(opts.parameters)
+  const keyParams = _keyBuilder(opts.keyPairs)
   return merge(fileParams, keyParams)
 }
 
@@ -40,7 +42,7 @@ function _parameterBuilder(files) {
   if (!files) {
     return {}
   }
-  return files.filter(file => _isInSupportList(file, ["yaml", "yml"]))
+  return files.filter(file => _isInSupportList(file, supportList))
     .map(file => utils.yamlParser(file))
     .reduce((accumulator, currentValue) => merge(accumulator, currentValue), {})
 }

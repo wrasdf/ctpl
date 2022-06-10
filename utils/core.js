@@ -8,8 +8,8 @@ const parser = require('./parser'),
 
 function cfnCompile(ctpl) {
   const params = parser.getParameters(ctpl),
-        components = ctpl.components,
-        prefix = ctpl.prefix
+        components = ctpl.opts().components,
+        prefix = ctpl.opts().prefix
 
   // Clean build folder
   utils.rmdir(buildPath)

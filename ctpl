@@ -9,7 +9,6 @@ ctpl
   .option('-c, --components [value]', 'AWS CloudFormation Components', parser.componentReader, [])
   .option('-p, --parameters [value]', 'Parameters File (yaml|yml)', parser.parameterReader, [])
   .option('-k, --keyPairs [value]', 'Key=Value Parameter', parser.keyReader, [])
-  .option('-t, --template <file>', 'template file')
 
 ctpl
   .command('compile')
