@@ -27,7 +27,7 @@
     "deepmerge": "^4.2.2",
     "fs-extra": "^10.0.0",
     "mustache": "^4.2.0",
-    "shelljs": "^0.8.4"
+    "shelljs": "^0.8.5"
   },
   "devDependencies": {
     "chai": "^4.3.4",
