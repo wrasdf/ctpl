@@ -1,14 +1,12 @@
 version: 2.1
 jobs:
   ut:
-    docker:
-      - image: ikerry/ctpl:v1.1.0
     steps:
       - checkout
       - run:
           name: Unit Test
           command: |
-            yarn run test
+            make test
 
 workflows:
   untagged-build:
