@@ -1,7 +1,6 @@
 version: 2.1
 jobs:
   ut:
-    machine: true
     docker:
       - image: ikerry/ctpl:v1.1.0
     steps:
@@ -12,7 +11,6 @@ jobs:
             yarn run test
 
 workflows:
-  version: 2
   untagged-build:
     jobs:
       - ut
