@@ -2,34 +2,17 @@ version: 2.1
 jobs:
   ut:
     machine: true
+    docker:
+      - image: ikerry/ctpl:v1.1.0
     steps:
       - checkout
       - run:
           name: Unit Test
           command: |
-            make test
-
-  deploy:
-    machine: true
-    steps:
-      - checkout
-      - run:
-          name: Deploy to Docker Hub
-          command: |
-            echo ${DOCKER_PASSWORD} | base64 --decode | docker login -u $DOCKER_USER --password-stdin
-            make push-${CIRCLE_TAG}
+            yarn run test
 
 workflows:
   version: 2
   untagged-build:
     jobs:
       - ut
-  tagged-build:
-    jobs:
-      - deploy:
-          context: Docker
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v.*/
