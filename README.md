@@ -18,7 +18,6 @@ Options:
   -c, --components [value]  AWS CloudFormation Components (default: [])
   -p, --parameters [value]  Parameters File (yaml|yml) (default: [])
   -k, --keyPairs [value]    Key=Value Parameter (default: [])
-  -t, --template <file>     template file
   -h, --help                output usage information
 
 Commands:
@@ -30,20 +29,19 @@ Commands:
 
 ## Quick start
 
-- Compile templates with params
+- Compile AWS CloudFormation component templates
 
 ```
 docker run --rm -v $(pwd):/app -v ~/.aws:/root/.aws -w /app ikerry/ctpl:latest compile \
   -p "envs/dev.yaml" \
   -k "VPC.Name=cluster" \
-  -t "cfns/infra/vpc.yaml" 
+  -c "infra/vpc"
 ```
 
 - Validate AWS CloudFormation component templates
 
 ```
 docker run --rm -v $(pwd):/app -v ~/.aws:/root/.aws -w /app ikerry/ctpl:latest validate \
-  -p "envs/default.yaml" \
   -p "envs/dev.yaml" \
   -k "VPC.Name=cluster" \
   -c "infra/vpc"
@@ -53,7 +51,6 @@ docker run --rm -v $(pwd):/app -v ~/.aws:/root/.aws -w /app ikerry/ctpl:latest v
 
 ```
 docker run --rm -v $(pwd):/app -v ~/.aws:/root/.aws -w /app ikerry/ctpl:latest apply \
-  -p "envs/default.yaml" \
   -p "envs/dev.yaml" \
   -k "VPC.Name=cluster" \
   -c "infra/vpc"
@@ -63,7 +60,6 @@ docker run --rm -v $(pwd):/app -v ~/.aws:/root/.aws -w /app ikerry/ctpl:latest a
 
 ```
 docker run --rm -v $(pwd):/app -v ~/.aws:/root/.aws -w /app ikerry/ctpl:latest delete \
-  -p "envs/default.yaml" \
   -p "envs/dev.yaml" \
   -k "VPC.Name=cluster" \
   -c "infra/vpc"
