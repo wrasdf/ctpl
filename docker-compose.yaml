@@ -28,7 +28,7 @@ services:
 
   ctpl:
     working_dir: /app
-    image: ikerry/cptl:v1.0.1
+    image: ikerry/cptl:latest
     volumes:
       - ".:/app"
       - "$HOME/.aws:/root/.aws"
